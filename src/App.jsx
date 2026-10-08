@@ -218,11 +218,14 @@ function App() {
     context.fillStyle = '#fffaf2'
     context.fillRect(48, 130, 804, 4)
     context.save()
+    context.translate(450, 215)
+    context.rotate(-2 * Math.PI / 180)
+    context.save()
     context.shadowColor = 'rgba(62, 11, 28, .22)'
     context.shadowBlur = 18
     context.shadowOffsetY = 8
     context.fillStyle = frameMaroon
-    roundRect(context, 210, 150, 480, 130, 60)
+    roundRect(context, -240, -65, 480, 130, 60)
     context.fill()
     context.restore()
     context.fillStyle = '#fffaf2'
@@ -232,10 +235,10 @@ function App() {
       maxSize: 52,
       minSize: 42,
       style: 'italic',
-      weight: 700,
+      weight: 600,
       family: 'Georgia, serif',
     })
-    context.fillText('Graduation Day', 450, 211)
+    context.fillText('Graduation Day', 0, -4)
     setFittedCanvasFont(context, 'SV IPB ANGKATAN 60', {
       maxWidth: 300,
       maxSize: 21,
@@ -243,7 +246,8 @@ function App() {
       weight: 700,
       family: 'Arial, sans-serif',
     })
-    context.fillText('SV IPB ANGKATAN 60', 450, 250)
+    context.fillText('SV IPB ANGKATAN 60', 0, 35)
+    context.restore()
     drawImageWithShadow(context, logoImage, 5, 82, 190, 190, 18)
     drawImageWithShadow(context, peekImage, 650, 88, 275, 300, 18)
     drawImageWithShadow(context, walkImage, -18, 1990, 315, 305, 18)
