@@ -220,9 +220,22 @@ function App() {
     context.restore()
     context.fillStyle = '#fffaf2'
     context.textAlign = 'center'
-    context.font = 'italic 700 68px Georgia, serif'
+    setFittedCanvasFont(context, 'Graduation Day', {
+      maxWidth: 430,
+      maxSize: 60,
+      minSize: 46,
+      style: 'italic',
+      weight: 700,
+      family: 'Georgia, serif',
+    })
     context.fillText('Graduation Day', 450, 120)
-    context.font = '700 23px Arial, sans-serif'
+    setFittedCanvasFont(context, 'SV IPB ANGKATAN 60', {
+      maxWidth: 340,
+      maxSize: 23,
+      minSize: 18,
+      weight: 700,
+      family: 'Arial, sans-serif',
+    })
     context.fillText('SV IPB ANGKATAN 60', 450, 157)
     drawImageWithShadow(context, logoImage, 0, 38, 202, 202, 18)
     drawImageWithShadow(context, peekImage, 642, 36, 285, 310, 18)
@@ -350,6 +363,15 @@ function App() {
 function roundRect(context, x, y, width, height, radius) {
   context.beginPath()
   context.roundRect(x, y, width, height, radius)
+}
+
+function setFittedCanvasFont(context, text, { maxWidth, maxSize, minSize, style = 'normal', weight = 400, family = 'sans-serif' }) {
+  let size = maxSize
+  context.font = `${style} ${weight} ${size}px ${family}`
+  while (size > minSize && context.measureText(text).width > maxWidth) {
+    size -= 1
+    context.font = `${style} ${weight} ${size}px ${family}`
+  }
 }
 
 function drawTrianglePattern(context, width, height) {
