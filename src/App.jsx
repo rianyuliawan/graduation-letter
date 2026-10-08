@@ -169,40 +169,47 @@ function App() {
   const downloadStrip = async () => {
     if (shots.length !== 3) return
     const canvas = document.createElement('canvas')
-    canvas.width = 900
-    canvas.height = 1840
+    const stripWidth = 900
+    const stripHeight = 2400
+    const photoX = 58
+    const photoWidth = 784
+    const photoHeight = 588
+    const photoGap = 18
+    const photoStartY = 330
+    canvas.width = stripWidth
+    canvas.height = stripHeight
     const context = canvas.getContext('2d')
     const frameMaroon = '#5c2134'
     const frameGold = '#aa8b5c'
-    drawTrianglePattern(context, 900, 1840)
+    drawTrianglePattern(context, stripWidth, stripHeight)
     context.save()
     context.shadowColor = 'rgba(62, 11, 28, .2)'
     context.shadowBlur = 26
     context.shadowOffsetY = 14
     context.fillStyle = '#fffaf2'
-    roundRect(context, 42, 158, 816, 1575, 30)
+    roundRect(context, 42, 130, 816, 2190, 30)
     context.fill()
     context.restore()
     context.strokeStyle = frameMaroon
     context.lineWidth = 10
-    roundRect(context, 42, 158, 816, 1575, 30)
+    roundRect(context, 42, 130, 816, 2190, 30)
     context.stroke()
     context.strokeStyle = frameGold
     context.lineWidth = 3
-    roundRect(context, 51, 167, 798, 1557, 24)
+    roundRect(context, 51, 139, 798, 2172, 24)
     context.stroke()
     const images = await Promise.all(shots.map(source => loadImage(source)))
     images.forEach((image, index) => {
-      const y = 190 + index * 484
-      drawCoverImage(context, image, 58, y, 784, 468, 13)
-      drawPhotoBlend(context, 58, y, 784, 468, 13)
+      const y = photoStartY + index * (photoHeight + photoGap)
+      drawCoverImage(context, image, photoX, y, photoWidth, photoHeight, 13)
+      drawPhotoBlend(context, photoX, y, photoWidth, photoHeight, 13)
       context.strokeStyle = frameMaroon
       context.lineWidth = 9
-      roundRect(context, 54, y - 4, 792, 476, 17)
+      roundRect(context, photoX - 4, y - 4, photoWidth + 8, photoHeight + 8, 17)
       context.stroke()
       context.strokeStyle = 'rgba(255, 250, 242, .9)'
       context.lineWidth = 3
-      roundRect(context, 62, y + 4, 776, 460, 10)
+      roundRect(context, photoX + 4, y + 4, photoWidth - 8, photoHeight - 8, 10)
       context.stroke()
     })
     const [walkImage, peekImage, celebrateImage, logoImage] = await Promise.all([loadImage(pandaWalk), loadImage(pandaPeek), loadImage(pandaCelebrate), loadImage(ipbLogo)])
@@ -215,42 +222,42 @@ function App() {
     context.shadowBlur = 18
     context.shadowOffsetY = 8
     context.fillStyle = frameMaroon
-    roundRect(context, 190, 48, 520, 134, 60)
+    roundRect(context, 210, 150, 480, 130, 60)
     context.fill()
     context.restore()
     context.fillStyle = '#fffaf2'
     context.textAlign = 'center'
     setFittedCanvasFont(context, 'Graduation Day', {
-      maxWidth: 430,
-      maxSize: 60,
-      minSize: 46,
+      maxWidth: 380,
+      maxSize: 52,
+      minSize: 42,
       style: 'italic',
       weight: 700,
       family: 'Georgia, serif',
     })
-    context.fillText('Graduation Day', 450, 120)
+    context.fillText('Graduation Day', 450, 211)
     setFittedCanvasFont(context, 'SV IPB ANGKATAN 60', {
-      maxWidth: 340,
-      maxSize: 23,
-      minSize: 18,
+      maxWidth: 300,
+      maxSize: 21,
+      minSize: 17,
       weight: 700,
       family: 'Arial, sans-serif',
     })
-    context.fillText('SV IPB ANGKATAN 60', 450, 157)
-    drawImageWithShadow(context, logoImage, 0, 38, 202, 202, 18)
-    drawImageWithShadow(context, peekImage, 642, 36, 285, 310, 18)
-    drawImageWithShadow(context, walkImage, -18, 1435, 315, 305, 18)
-    drawImageWithShadow(context, celebrateImage, 638, 1390, 285, 330, 18)
+    context.fillText('SV IPB ANGKATAN 60', 450, 250)
+    drawImageWithShadow(context, logoImage, 5, 82, 190, 190, 18)
+    drawImageWithShadow(context, peekImage, 650, 88, 275, 300, 18)
+    drawImageWithShadow(context, walkImage, -18, 1990, 315, 305, 18)
+    drawImageWithShadow(context, celebrateImage, 638, 1958, 285, 330, 18)
     context.fillStyle = frameMaroon
-    roundRect(context, 240, 1642, 420, 70, 35)
+    roundRect(context, 240, 2200, 420, 70, 35)
     context.fill()
     context.fillStyle = '#fffaf2'
     context.font = '600 31px Arial, sans-serif'
-    context.fillText('IPB University', 450, 1688)
+    context.fillText('IPB University', 450, 2246)
     context.fillStyle = 'rgba(111,24,49,.25)'
     context.font = '42px Georgia, serif'
-    context.fillText('♡', 840, 580)
-    context.fillText('✦', 60, 1040)
+    context.fillText('♡', 840, 760)
+    context.fillText('✦', 60, 1410)
     const link = document.createElement('a')
     link.download = 'amara-graduation-photostrip.png'
     link.href = canvas.toDataURL('image/png')
