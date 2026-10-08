@@ -255,9 +255,13 @@ function App() {
     context.fillStyle = frameMaroon
     roundRect(context, 240, 2200, 420, 70, 35)
     context.fill()
+    context.save()
     context.fillStyle = '#fffaf2'
+    context.textAlign = 'center'
+    context.textBaseline = 'middle'
     context.font = '600 31px Arial, sans-serif'
-    context.fillText('IPB University', 450, 2246)
+    context.fillText('IPB University', 450, 2235)
+    context.restore()
     context.fillStyle = 'rgba(111,24,49,.25)'
     context.font = '42px Georgia, serif'
     context.fillText('♡', 840, 760)
